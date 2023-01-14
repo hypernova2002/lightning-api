@@ -1,0 +1,19 @@
+/.bundle/
+/.data/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+/db
+/Dockerfile
+/docker-compose.yml
+
+# rspec failure tracking
+.rspec_status
+
+Gemfile.lock
+
+examples
