@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = ''
   spec.homepage      = 'https://github.com/hypernova2002/ligtning-api'
   spec.license       = 'MIT'
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

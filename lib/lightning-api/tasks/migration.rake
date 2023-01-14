@@ -26,20 +26,23 @@ namespace :db do
   end
 
   namespace :migration do
-    require "sequel"
-    Sequel.extension :migration
-    DB = Sequel.connect(
-      adapter: :postgres,
-      host: ENV['POSTGRES_HOST'],
-      database: ENV['POSTGRES_DB'],
-      username: ENV['POSTGRES_USER'],
-      password: ENV['POSTGRES_PASSWORD']
-    )
+    def database
+      @database ||= begin
+        require "sequel"
+        Sequel.extension :migration
+        Sequel.connect(
+          adapter: :postgres,
+          host: ENV['POSTGRES_HOST'],
+          database: ENV['POSTGRES_DB'],
+          username: ENV['POSTGRES_USER'],
+          password: ENV['POSTGRES_PASSWORD']
+        )
+    end
     
     desc "Prints current schema version"
     task :version do    
-      version = if DB.tables.include?(:schema_info)
-        DB[:schema_info].first[:version]
+      version = if database.tables.include?(:schema_info)
+        database[:schema_info].first[:version]
       end || 0
   
       puts "Schema Version: #{version}"
@@ -47,7 +50,7 @@ namespace :db do
   
     desc "Perform migration up to latest migration available"
     task :migrate do
-      Sequel::Migrator.run(DB, MIGRATIONS_DIR)
+      Sequel::Migrator.run(database, MIGRATIONS_DIR)
       Rake::Task['db:migration:version'].execute
     end
       
@@ -55,14 +58,14 @@ namespace :db do
     task :rollback, :target do |t, args|
       args.with_defaults(:target => 0)
   
-      Sequel::Migrator.run(DB, MIGRATIONS_DIR, :target => args[:target].to_i)
+      Sequel::Migrator.run(database, MIGRATIONS_DIR, :target => args[:target].to_i)
       Rake::Task['db:migration:version'].execute
     end
   
     desc "Perform migration reset (full rollback and migration)"
     task :reset do
-      Sequel::Migrator.run(DB, MIGRATIONS_DIR, :target => 0)
-      Sequel::Migrator.run(DB, MIGRATIONS_DIR)
+      Sequel::Migrator.run(database, MIGRATIONS_DIR, :target => 0)
+      Sequel::Migrator.run(database, MIGRATIONS_DIR)
       Rake::Task['db:migration:version'].execute
     end
 
