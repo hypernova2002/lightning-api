@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['LICENSE.txt', 'README.md', 'lib/**/*']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  # spec.require_paths = ['lib']
 
   spec.add_dependency 'rack'
   spec.add_dependency 'puma'
