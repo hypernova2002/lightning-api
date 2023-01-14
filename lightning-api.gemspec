@@ -5,12 +5,12 @@ require 'lightning-api/version'
 Gem::Specification.new do |spec|
   spec.name          = 'lightning-api'
   spec.version       = LightningApi::VERSION
-  spec.authors = ['change_me']
-  spec.email = ['change_me@notanemail.com']
+  spec.authors = ['hypernova2002']
+  spec.email = ['hypernova2002@gmail.com']
 
   spec.summary       = ''
   spec.description   = ''
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/hypernova2002/ligtning-api'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -44,10 +44,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'oj'
   spec.add_dependency 'guard'
   spec.add_dependency 'guard-puma'
+  spec.add_dependency 'dry-cli'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'reek'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop-rootstrap'
   spec.add_development_dependency 'simplecov'

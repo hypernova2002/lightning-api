@@ -1,17 +1,18 @@
-# Lightning::Api
+# Lightning Api
 
-Lightning Api is a highly opinionated api, removing a lot of boiler plate code, aiming to simplify api development.
+Lightning Api is a highly opinionated api, simplifying api development by removing a lot of boiler plate code.
 
-This library uses it's own design pattern for writing apis. Whilst a typical pattern might be MVC, Lightning Api uses a pipeline pattern. Typically, after a request has arrived at the controller, the controller or service will need to fetch the required resources specified by the request parameters, perform various actions on those resources and then return a response. This process is often repetitive across routes, so many apis write their own middleware or callback abstraction layer. The problem is that this is often repeated for every project and each project has to try and solve the same problem. Lightning Api tries to solve this problem once, so every project has the basic api process in place.
+This library uses it's own design pattern for writing apis. Whilst a typical pattern might be MVC, Lightning Api uses a pipeline pattern. When request has arrives at the controller, the controller or service will need to fetch the required resources specified by the request parameters, perform various actions on those resources and then return a response. This process is often repetitive across routes, so many apis write their own middleware or callback abstraction layer. The problem is that this is often repeated for every project and each project has to try and solve the same problem. Lightning Api tries to solve this problem once, so every project has the basic api process in place.
 
 A typical flow for a GET route might be
 
 - Fetch resources based on the url parameters
 - Perform filtering and sorting based on query string parameters
 - Paginate results
-- Return a response in the form of a resource object
+- Convert the results into resources
+- Serialise resources into JSON
 
-This can be easily encapsulated into a list action pipeline
+This can be easily encapsulated into an abstract list action pipeline.
 
 ```ruby
 module ExampleApi
@@ -21,7 +22,7 @@ module ExampleApi
 end
 ```
 
-Then a list action might look like
+Then any list action can be created by inheriting the abstract list action and setting up some configuration.
 
 ```ruby
 module ExampleApi
@@ -76,7 +77,7 @@ Or install it yourself as:
 ### Create an app
 
 ```ruby
-# app/app.rb
+# example-api/app.rb
 
 require 'lightning-api'
 
@@ -92,7 +93,7 @@ The library uses the zeitwerk gem for resolving constants, so the modules and na
 ### Create an action
 
 ```ruby
-# app/actions/home/show.rb
+# example-api/actions/home/show.rb
 
 module ExampleApi
   module Actions
@@ -104,7 +105,22 @@ module ExampleApi
 end
 ```
 
-If you need more information, then you can find example applications in the examples folder. These applications should contain enough information to build a basic api.
+If you need more information, then you can find example applications in the examples folder. These applications should contain enough information for building a basic api.
+
+## Rake Tasks
+
+The library is equipped with some rake tasks for managing your application. Add the following to your Rakefile.
+
+```ruby
+# Rakefile
+
+require 'lightning-api/rake_tasks'
+```
+
+List all the available rake tasks.
+
+    $ bundle exec rake -T
+
 
 ## Development
 
@@ -122,4 +138,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Lightning::Api project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/lightning-api/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Lightning Api project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/lightning-api/blob/master/CODE_OF_CONDUCT.md).

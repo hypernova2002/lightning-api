@@ -13,8 +13,8 @@ module LightningApi
           if snake_case_string.to_s.index('_')
             snake_case_string.to_s.split('_').map(&:capitalize).join
           else
-            snake_case_string[0] = snake_case_string[0].upcase
-            snake_case_string
+            # @note: try not to modify the string in case it is frozen
+            snake_case_string[0].upcase + snake_case_string[1..]
           end
         end
       end
