@@ -37,6 +37,7 @@ namespace :db do
           username: ENV['POSTGRES_USER'],
           password: ENV['POSTGRES_PASSWORD']
         )
+      end
     end
     
     desc "Prints current schema version"
