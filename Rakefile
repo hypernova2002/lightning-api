@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Rake.add_rakelib 'lib/tasks'
+Rake.add_rakelib 'lib/lightning-api/tasks'
 
 task :code_analysis do
   sh 'bundle exec rubocop lib spec'

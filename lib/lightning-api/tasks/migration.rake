@@ -26,10 +26,11 @@ namespace :db do
   end
 
   namespace :migration do
+    require "sequel"
+    Sequel.extension :migration
+
     def database
       @database ||= begin
-        require "sequel"
-        Sequel.extension :migration
         Sequel.connect(
           adapter: :postgres,
           host: ENV['POSTGRES_HOST'],
