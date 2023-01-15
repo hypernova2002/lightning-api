@@ -2,6 +2,15 @@ inherit_gem:
   rubocop-rootstrap:
     - config/default_edge.yml
 
+AllCops:
+  TargetRubyVersion: 3.1
+  Exclude:
+    - '**/pagy.rb'
+    - '**/init.rb'
+    - '**/*.rake'
+    - '*.erb'
+    - '*.gemspec'
+
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
@@ -20,3 +29,17 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - '**/lightning-api.rb'
+    - '**/lightning-api_spec.rb'

@@ -7,11 +7,17 @@ module LightningApi
       end
 
       def call(env)
-        if env['CONTENT_TYPE'].nil? || env['CONTENT_TYPE'].empty? || env['CONTENT_TYPE'] == 'application/x-www-form-urlencoded'
-          env['CONTENT_TYPE'] = @content_type
-        end
+        env['CONTENT_TYPE'] = @content_type if invalid_content_type?
 
         @app.call(env)
+      end
+
+      private
+
+      def invalid_content_type?
+        env['CONTENT_TYPE'].nil? ||
+          env['CONTENT_TYPE'].empty? ||
+          env['CONTENT_TYPE'] == 'application/x-www-form-urlencoded'
       end
     end
   end

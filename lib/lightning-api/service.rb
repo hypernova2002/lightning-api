@@ -7,6 +7,6 @@ module LightningApi
       @dataset = dataset
     end
 
-    def call(params: nil) = dataset
+    def call(*) = dataset
   end
 end

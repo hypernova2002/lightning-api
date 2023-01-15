@@ -21,17 +21,17 @@ module LightningApi
 
     private
 
-      def pagy_headers_merge(pagy)
-        @headers ||= {}
-        headers.merge!(pagy_headers(pagy))
-      end
+    def pagy_headers_merge(pagy)
+      @headers ||= {}
+      headers.merge!(pagy_headers(pagy))
+    end
 
-      def pagy_get_vars(collection, vars)
-        {
-          count: collection.count,
-          page: vars[:page] || params[:page] || Pagy::DEFAULT[:page],
-          items: vars[:items] || params[:items]  || Pagy::DEFAULT[:items]
-        }
-      end
+    def pagy_get_vars(collection, vars)
+      {
+        count: collection.count,
+        page: vars[:page] || params[:page] || Pagy::DEFAULT[:page],
+        items: vars[:items] || params[:items] || Pagy::DEFAULT[:items]
+      }
+    end
   end
 end

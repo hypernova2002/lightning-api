@@ -1,3 +1,7 @@
+module LightningApi
+  module Models; end
+end
+
 RSpec.describe LightningApi::Resolver do
   subject { described_class.new(user:, dataset:) }
 
@@ -16,20 +20,17 @@ RSpec.describe LightningApi::Resolver do
   context '#resolve' do
     let(:inferable_dataset_with_method) do
       klass = Class.new do
-        def inferable_dataset_with_methods_dataset() = self
+        def inferable_dataset_with_methods_dataset = self
         def where(id:) = [id + 5]
       end
 
-      LightningApi::Models.const_set("InferableDatasetWithMethod", klass)
+      LightningApi::Models.const_set('InferableDatasetWithMethod', klass)
     end
 
-    let(:inferable_dataset_without_method) { LightningApi::Models.const_set("InferableDatasetWithoutMethod", Class.new) }
-    let(:non_inferable_dataset) { Object.const_set("NonInferableDataset", Class.new) }
-
-    before(:all) do
-      module LightningApi; end
-      module LightningApi::Models; end
+    let(:inferable_dataset_without_method) do
+      LightningApi::Models.const_set('InferableDatasetWithoutMethod', Class.new)
     end
+    let(:non_inferable_dataset) { Object.const_set('NonInferableDataset', Class.new) }
 
     it 'correctly calls inferable dataset with inferable method' do
       params[:inferable_dataset_with_method_id] = 3

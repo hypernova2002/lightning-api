@@ -10,14 +10,14 @@ RSpec.describe LightningApi::Resolvers do
   end
 
   context 'instance attributes' do
-    it ('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
-    it ('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
+    it('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
+    it('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
     # it ('has request attribute') { subject.new.respond_to?(:request) }
-    it ('has params attribute') { expect(subject.new.respond_to?(:params)).to be true }
+    it('has params attribute') { expect(subject.new.respond_to?(:params)).to be true }
   end
 
   context 'class attributes' do
-    it ('has resolver_chain attribute') { expect(subject.respond_to?(:resolver_chain)).to be true }
+    it('has resolver_chain attribute') { expect(subject.respond_to?(:resolver_chain)).to be true }
   end
 
   context '.resolver_chain' do
@@ -56,11 +56,11 @@ RSpec.describe LightningApi::Resolvers do
 
       subject.resolvers(resolver_class)
       action = subject.new.tap do |a|
-        a.instance_variable_set("@user", user)
-        a.instance_variable_set("@dataset", dataset)
-        a.instance_variable_set("@params", params)
+        a.instance_variable_set('@user', user)
+        a.instance_variable_set('@dataset', dataset)
+        a.instance_variable_set('@params', params)
       end
-    
+
       action.call_resolvers
 
       expect(action.dataset).to eql(params)
@@ -72,9 +72,9 @@ RSpec.describe LightningApi::Resolvers do
 
       subject.resolvers(resolver_class)
       action = subject.new.tap do |a|
-        a.instance_variable_set("@user", user)
-        a.instance_variable_set("@dataset", dataset)
-        a.instance_variable_set("@params", params)
+        a.instance_variable_set('@user', user)
+        a.instance_variable_set('@dataset', dataset)
+        a.instance_variable_set('@params', params)
       end
 
       expect { action.call_resolvers }.to throw_symbol(:halt, [404, nil, []])

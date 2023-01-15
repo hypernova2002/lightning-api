@@ -8,6 +8,7 @@ module LightningApi
 
     def self.inherited(action_class)
       action_class.extend(ClassMethods)
+      super
     end
 
     def halt(status, body = nil)

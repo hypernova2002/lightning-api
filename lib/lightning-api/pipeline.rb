@@ -15,12 +15,14 @@ module LightningApi
 
     private
 
-      def performers
-        @performers ||= begin
-          self.class.pipeline_performers ||
-            (self.class.superclass.respond_to?(:pipeline_performers) ? self.class.superclass.pipeline_performers : [])
-        end
-      end
+    def performers
+      @performers ||= self.class.pipeline_performers ||
+                      (if self.class.superclass.respond_to?(:pipeline_performers)
+                         self.class.superclass.pipeline_performers
+                       else
+                         []
+                       end)
+    end
 
     module ClassMethods
       attr_reader :pipeline_performers
@@ -28,7 +30,7 @@ module LightningApi
       def pipeline(*performers)
         @pipeline_performers = performers
 
-        namespace = self.name ? self.name.rpartition('::').first : ''
+        namespace = name ? name.rpartition('::').first : ''
         namespace_module = namespace.empty? ? Object : Object.const_get(namespace)
 
         pipeline_performers.each do |performer|

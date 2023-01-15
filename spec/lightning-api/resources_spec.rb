@@ -6,12 +6,12 @@ RSpec.describe LightningApi::Resources do
   end
 
   context 'instance attributes' do
-    it ('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
-    it ('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
+    it('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
+    it('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
   end
 
   context 'class attributes' do
-    it ('has resource_class attribute') { expect(subject.respond_to?(:resource_class)).to be true }
+    it('has resource_class attribute') { expect(subject.respond_to?(:resource_class)).to be true }
   end
 
   context '.resource' do
@@ -41,29 +41,30 @@ RSpec.describe LightningApi::Resources do
         expect(resource_class).not_to receive(:new)
         subject.resource(resource_class)
         action = subject.new.tap do |a|
-          a.instance_variable_set("@user", user)
+          a.instance_variable_set('@user', user)
         end
-      
+
         expect(action.call_resources).to be_nil
       end
 
       it 'calls resources with correct parameters' do
-        expect(resource_class).to receive(:new).with(dataset, params: { user: }).and_return(resource)
+        expect(resource_class).to receive(:new).with(dataset,
+                                                     params: { user: }).and_return(resource)
         expect(resource).to receive(:serialize).and_return(dataset)
         subject.resource(resource_class)
         action = subject.new.tap do |a|
-          a.instance_variable_set("@user", user)
-          a.instance_variable_set("@dataset", dataset)
+          a.instance_variable_set('@user', user)
+          a.instance_variable_set('@dataset', dataset)
         end
-      
+
         expect(action.call_resources).to eql(dataset)
       end
 
       it 'calls inline_serialize when there are no configured resources' do
         subject.resource(nil)
         action = subject.new.tap do |a|
-          a.instance_variable_set("@user", user)
-          a.instance_variable_set("@dataset", dataset)
+          a.instance_variable_set('@user', user)
+          a.instance_variable_set('@dataset', dataset)
         end
 
         expect(action).to receive(:inline_serialize).and_return(dataset)
@@ -96,24 +97,28 @@ RSpec.describe LightningApi::Resources do
     end
 
     context '#inline_serialize' do
-      let(:time_dataset) { OpenStruct.new(columns: %i[timestamp], timestamp: Time.new(2023, 5, 7, 18, 15, 20)) }
+      let(:time_dataset) do
+        OpenStruct.new(columns: %i[timestamp], timestamp: Time.new(2023, 5, 7, 18, 15, 20))
+      end
       let(:nil_dataset) { OpenStruct.new(columns: %i[nil_field], nil_field: nil) }
       let(:integer_dataset) { OpenStruct.new(columns: %i[integer], integer: 3) }
 
       it 'correctly serializes Time' do
-        expect(subject.new.send(:inline_serialize, time_dataset)).to eql({timestamp: "2023-05-07 18:15:20"}.to_json)
+        expect(subject.new.send(:inline_serialize,
+                                time_dataset)).to eql({ timestamp: '2023-05-07 18:15:20' }.to_json)
       end
 
       it 'correctly serializes NilClass' do
-        expect(subject.new.send(:inline_serialize, nil_dataset)).to eql({nil_field: nil}.to_json)
+        expect(subject.new.send(:inline_serialize, nil_dataset)).to eql({ nil_field: nil }.to_json)
       end
 
       it 'correctly serializes Integer' do
-        expect(subject.new.send(:inline_serialize, integer_dataset)).to eql({integer: 3}.to_json)
+        expect(subject.new.send(:inline_serialize, integer_dataset)).to eql({ integer: 3 }.to_json)
       end
 
       it 'correctly serializes when dataset is an array' do
-        expect(subject.new.send(:inline_serialize, [integer_dataset])).to eql([{integer: 3}].to_json)
+        expect(subject.new.send(:inline_serialize,
+                                [integer_dataset])).to eql([{ integer: 3 }].to_json)
       end
     end
   end

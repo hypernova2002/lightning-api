@@ -24,10 +24,10 @@ module LightningApi
 
       private
 
-        def template_location
-          current_path = caller_locations(1, 1).first.path
-          File.expand_path(File.join(current_path, '..', 'templates'))
-        end
+      def template_location
+        current_path = caller_locations(1, 1).first.path
+        File.expand_path(File.join(current_path, '..', 'templates'))
+      end
     end
   end
 end

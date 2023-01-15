@@ -6,11 +6,11 @@ RSpec.describe LightningApi::Datasets do
   end
 
   context 'instance attributes' do
-    it ('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
+    it('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
   end
 
   context 'class attributes' do
-    it ('has dataset attribute') { expect(subject.respond_to?(:dataset)).to be true }
+    it('has dataset attribute') { expect(subject.respond_to?(:dataset)).to be true }
   end
 
   context '.default_dataset' do
@@ -35,7 +35,7 @@ RSpec.describe LightningApi::Datasets do
 
     it 'does not set dataset when dataset_class is not set' do
       dataset = subject.new
-      dataset.instance_variable_set("@dataset", dataset_class)
+      dataset.instance_variable_set('@dataset', dataset_class)
       dataset.call_datasets
 
       expect(dataset.dataset).to eql(dataset_class)

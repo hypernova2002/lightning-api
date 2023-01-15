@@ -14,7 +14,7 @@ module LightningApi
 
       @dataset =
         if resource
-           resource.new(dataset, params: { user: }).serialize
+          resource.new(dataset, params: { user: }).serialize
         else
           inline_serialize(dataset)
         end
@@ -26,29 +26,29 @@ module LightningApi
 
     private
 
-      def inline_serialize(dataset)
-        data = dataset.respond_to?(:all) ? dataset.all : dataset
-        entry = data.is_a?(Array) ? data.first : data
+    def inline_serialize(dataset)
+      data = dataset.respond_to?(:all) ? dataset.all : dataset
+      entry = data.is_a?(Array) ? data.first : data
 
-        attribute_map = entry.columns.each_with_object({}) do |column, mapping|
-          mapping[column] = datatype_map(entry[column])
-        end
-
-        Alba.serialize(data) do
-          attributes **attribute_map
-        end
+      attribute_map = entry.columns.each_with_object({}) do |column, mapping|
+        mapping[column] = datatype_map(entry[column])
       end
 
-      def datatype_map(datatype)
-        case datatype
-        when Time
-          [String, ->(object) { object.strftime('%F %T') }]
-        when NilClass
-          [String, ->(object) { nil }]
-        else
-          [datatype.class, true]
-        end
+      Alba.serialize(data) do
+        attributes(**attribute_map)
       end
+    end
+
+    def datatype_map(datatype)
+      case datatype
+      when Time
+        [String, ->(object) { object.strftime('%F %T') }]
+      when NilClass
+        [String, ->(_object) {}]
+      else
+        [datatype.class, true]
+      end
+    end
 
     module ClassMethods
       attr_reader :resource_class

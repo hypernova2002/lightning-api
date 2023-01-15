@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = ''
   spec.homepage      = 'https://github.com/hypernova2002/ligtning-api'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0')
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -34,26 +34,26 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   # spec.require_paths = ['lib']
 
-  spec.add_dependency 'rack'
-  spec.add_dependency 'puma'
   spec.add_dependency 'alba'
-  spec.add_dependency 'hanami-api', '~>0.3'
-  spec.add_dependency 'sequel'
-  spec.add_dependency 'pg'
-  spec.add_dependency 'pagy'
-  spec.add_dependency 'zeitwerk'
-  spec.add_dependency 'oj'
+  spec.add_dependency 'dry-cli'
   spec.add_dependency 'guard'
   spec.add_dependency 'guard-puma'
-  spec.add_dependency 'dry-cli'
+  spec.add_dependency 'hanami-api', '~>0.3'
+  spec.add_dependency 'oj'
+  spec.add_dependency 'pagy'
+  spec.add_dependency 'pg'
+  spec.add_dependency 'puma'
+  spec.add_dependency 'rack'
+  spec.add_dependency 'sequel'
+  spec.add_dependency 'zeitwerk'
 
   spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'reek'
-  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rootstrap'
   spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'pry'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

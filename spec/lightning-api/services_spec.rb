@@ -6,13 +6,13 @@ RSpec.describe LightningApi::Services do
   end
 
   context 'instance attributes' do
-    it ('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
-    it ('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
-    it ('has params attribute') { expect(subject.new.respond_to?(:params)).to be true }
+    it('has user attribute') { expect(subject.new.respond_to?(:user)).to be true }
+    it('has dataset attribute') { expect(subject.new.respond_to?(:dataset)).to be true }
+    it('has params attribute') { expect(subject.new.respond_to?(:params)).to be true }
   end
 
   context 'class attributes' do
-    it ('has service_class attribute') { expect(subject.respond_to?(:service_class)).to be true }
+    it('has service_class attribute') { expect(subject.respond_to?(:service_class)).to be true }
   end
 
   context '.service' do
@@ -46,9 +46,9 @@ RSpec.describe LightningApi::Services do
 
       subject.service(service_class)
       action = subject.new.tap do |a|
-        a.instance_variable_set("@user", user)
-        a.instance_variable_set("@dataset", dataset)
-        a.instance_variable_set("@params", params)
+        a.instance_variable_set('@user', user)
+        a.instance_variable_set('@dataset', dataset)
+        a.instance_variable_set('@params', params)
       end
 
       expect(action.call_services).to eql(params)

@@ -18,7 +18,7 @@ RSpec.describe LightningApi::ListAction do
 
     context 'dependencies' do
       it { is_expected.to be_a_kind_of(LightningApi::Pipeline) }
-  
+
       context 'pipelines' do
         it { is_expected.to be_a_kind_of(LightningApi::Datasets) }
         it { is_expected.to be_a_kind_of(LightningApi::Resolvers) }

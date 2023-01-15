@@ -6,7 +6,9 @@ RSpec.describe LightningApi::Pipeline do
   end
 
   context 'class attributes' do
-    it ('has pipeline_performers attribute') { expect(subject.respond_to?(:pipeline_performers)).to be true }
+    it('has pipeline_performers attribute') {
+      expect(subject.respond_to?(:pipeline_performers)).to be true
+    }
   end
 
   context '.pipeline' do
@@ -23,7 +25,8 @@ RSpec.describe LightningApi::Pipeline do
     it 'sets multiple pipeline_modules' do
       Object.const_set('SetMultiplePipelineModule', set_pipeline_module)
       subject.pipeline(:set_multiple_pipeline_module, :set_multiple_pipeline_module)
-      expect(subject.pipeline_performers).to contain_exactly(:set_multiple_pipeline_module, :set_multiple_pipeline_module)
+      expect(subject.pipeline_performers).to contain_exactly(:set_multiple_pipeline_module,
+                                                             :set_multiple_pipeline_module)
     end
   end
 
