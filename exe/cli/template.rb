@@ -16,8 +16,9 @@ module LightningApi
       def write(filename, file_dir: nil, content: '', **vars)
         full_filename = file_dir.nil? ? File.join(dir, filename) : File.join(file_dir, filename)
         erb_template = ERB.new(content)
-        pp filename
         result = vars.empty? ? erb_template.result : erb_template.result_with_hash(**vars)
+
+        $stdout.puts "Writing file #{full_filename}"
         File.write(full_filename, result)
       end
 
