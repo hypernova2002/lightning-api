@@ -1,0 +1,7 @@
+group :server do
+  guard "puma", port: ENV.fetch("<%= app_name.upcase %>_PORT", <%= port %>) do
+    watch(%r{config/*})
+    watch(%r{lib/*})
+    watch(%r{app/*})
+  end
+end

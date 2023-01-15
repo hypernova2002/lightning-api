@@ -1,0 +1,9 @@
+module <%= app_name.capitalize %>
+  module Actions
+    module Home
+      class Show < LightningApi::Action
+        default_dataset OpenStruct.new(columns: [:status], status: 'ok')
+      end
+    end
+  end
+end

@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require "bundler/setup"
+require "dry/cli"
+
+require_relative 'cli/commands/init'
+
+module LightningApi
+  module Cli
+  end
+end

@@ -42,6 +42,22 @@ Whenever the ExampleController::List action is invoked, the ExampleModel class w
 
 Controller actions are now just a matter of configuration.
 
+## Dependencies
+
+|Library|Description|
+|-------:|-----------|
+|[Docker](https://www.docker.com/)|Manage containers for a clean environment|
+|[Rack](https://github.com/rack/rack)|A modular interface for middleware|
+|[Zeitwerk](https://github.com/fxn/zeitwerk)|Library for loading code|
+|[Hanami Api](https://github.com/hanami/api)|Fast api framework|
+|[Sequel](https://github.com/jeremyevans/sequel)|ORM and database adapter|
+|[Puma](https://github.com/puma/puma)|Web server|
+|[Alba](https://github.com/okuramasafumi/alba)|Resource serialization|
+|[Pagy](https://github.com/ddnexus/pagy)|Pagination|
+|[Oj](https://github.com/ohler55/oj)|JSON serializer|
+|[Guard](https://github.com/guard/guard)|Code reloader|
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -58,19 +74,18 @@ Or install it yourself as:
 
     $ gem install lightning-api
 
-## Dependencies
+Create a new project
 
-|Library|Description|
-|-------:|-----------|
-|[Rack](https://github.com/rack/rack)|A modular interface for middleware|
-|[Zeitwerk](https://github.com/fxn/zeitwerk)|Library for loading code|
-|[Hanami Api](https://github.com/hanami/api)|Fast api framework|
-|[Sequel](https://github.com/jeremyevans/sequel)|ORM and database adapter|
-|[Puma](https://github.com/puma/puma)|Web server|
-|[Alba](https://github.com/okuramasafumi/alba)|Resource serialization|
-|[Pagy](https://github.com/ddnexus/pagy)|Pagination|
-|[Oj](https://github.com/ohler55/oj)|JSON serializer|
-|[Guard](https://github.com/guard/guard)|Code reloader|
+    $ lapi new <project_name>
+
+Start the project
+
+    $ docker-compose up
+
+After all the gems have been installed and the application has started, the API will be available via the url [http://localhost:5550](http://localhost:5550).
+
+You should see the message `{"status":"ok"}`
+
 
 ## Usage
 

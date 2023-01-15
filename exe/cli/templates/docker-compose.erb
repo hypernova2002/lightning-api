@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    command: bash -c "bin/setup && bin/server"
+    stdin_open: true
+    tty: true
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: <%= app_name %>-local
+      POSTGRES_HOST: db
+    volumes:
+      - .:/<%= app_dir %>
+    ports:
+      - <%= port %>:<%= port %>
+    networks:
+      - <%= app_name %>
+    depends_on:
+      - db
+
+  db:
+    image: 'postgres:12.6-alpine'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: <%= app_name %>-local
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+    networks:
+      - <%= app_name %>
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 15433:80
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lightning-api-local
+      PGADMIN_DEFAULT_EMAIL: <%= app_name.gsub(/[^0-9a-z]/i, '').downcase %>@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    depends_on:
+      - db
+    volumes:
+      - ./db/pgadmin/:/var/lib/pgadmin/
+    networks:
+      - <%= app_name %>
+
+networks:
+  <%= app_name %>:
+    name: <%= app_name %>

@@ -1,0 +1,7 @@
+require 'lightning-api'
+
+module <%= app_name.capitalize %>
+  class App < LightningApi::App
+    get '/', to: Actions::Home::Show
+  end
+end
